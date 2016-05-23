@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to example.com</h1>
+    <p>
+      <%= @sender.first_name %> has invited you to be the co-owner of the wedding party.
+      Please click <%= link_to 'here', signup_path(:invite_token => @invite.token)  %> to sign-up.
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>

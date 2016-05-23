@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user_group.name %>
+</p>
+
+<p>
+  <strong>Hashtag:</strong>
+  <%= @user_group.hashtag %>
+</p>
+
+<p>
+  <strong>Members <strong>
+  <% @user_group.users.each do |user|%>
+    <p> <%= user.first_name %></p>
+  <% end %>
+</p>
+
+<%= form_for @invite , :url => invites_path do |f| %>
+    <%= f.hidden_field :user_group_id, :value => @user_group.id %>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+    <%= f.submit 'Send' %>
+<% end %>
+
+<%= link_to 'Add members to group', user_group_memberships_path(@user_group) %>
+<%= link_to 'Edit', edit_user_group_path(@user_group) %> |
+<%= link_to 'Back', user_groups_path %>

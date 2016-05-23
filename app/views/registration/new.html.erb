@@ -1,0 +1,59 @@
+<div class="page-body">
+  <div class="ui breadcrumb registration">
+    <a class="section">Home</a>
+      <i class="right chevron icon divider"></i>
+    <a class="active section">User Sign Up</a>
+      <i class="right chevron icon divider"></i>
+    <a class="section">Create Your Wedding Party</a>
+      <i class="right chevron icon divider"></i>
+  </div>
+
+    <%= form_for @user, url: signup_path, html: {class: "ui form", id: "signup-form"} do |f| %>
+      <%= render 'shared/errors', object: @user %>
+      <div class="ui form segment">
+        <h2 class="ui header">Sign Yourself Up!</h2>
+        <% if @token != nil %>
+            <%= hidden_field_tag :invite_token, @token %>
+        <% end %>
+        <div class="three fields">
+          <div class="field">
+            <%= f.label :first_name %>
+            <div class="field">
+              <%= f.text_field :first_name %>
+            </div>
+          </div>
+          <div class="field">
+            <%= f.label :last_name %>
+            <div class="field">
+              <%= f.text_field :last_name %>
+            </div>
+          </div>
+          <div class="field">
+            <%= f.label :email %>
+            <div class="field">
+              <%= f.text_field :email %>
+            </div>
+          </div>
+        </div>
+
+        <div class="two fields">
+          <div class="field">
+            <%= f.label :password %>
+            <div class="field">
+              <%= f.password_field :password %>
+            </div>
+          </div>
+          <div class="field">
+            <%= f.label :password_confirmation %>
+            <div class="field">
+              <%= f.password_field :password_confirmation %>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <%= f.submit "Sign Up", id: "sign-up", class: "ui button" %>
+        </div>
+      </div>
+    <% end %>
+</div>

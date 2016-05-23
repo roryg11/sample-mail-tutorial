@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SampleMailTutorial</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<p>Hello!
+<% if  current_user%>
+<%= current_user.first_name %>!
+<% end  %>
+  </p>
+<%= link_to "Sign Out", signout_path, class: "item"%>
+<%= link_to "Sign In", signin_path, class: "item" %>
+
+<%= yield %>
+
+</body>
+</html>
