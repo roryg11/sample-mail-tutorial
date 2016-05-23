@@ -28,11 +28,19 @@ class UserGroupsController < ApplicationController
   # POST /user_groups.json
   def create
     @user_group = UserGroup.new(user_group_params)
-
     respond_to do |format|
       if @user_group.save
-        format.html { redirect_to @user_group, notice: 'User group was successfully created.' }
-        format.json { render :show, status: :created, location: @user_group }
+        @owner_membership = @user_group.memberships.new()
+        @owner_membership.user_group_id = @user_group.id
+        @owner_membership.user_id = current_user.id
+        @owner_membership.membership_type = "owner"
+        if @owner_membership.save
+          format.html { redirect_to @user_group, notice: 'User group was successfully created.' }
+          format.json { render :show, status: :created, location: @user_group }
+        else
+          format.html { render :new }
+          format.json { render json: @owner_membership.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :new }
         format.json { render json: @user_group.errors, status: :unprocessable_entity }
@@ -73,5 +81,13 @@ class UserGroupsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_group_params
       params.require(:user_group).permit(:name, :hashtag)
+    end
+
+    def membership_params
+      params.require(:membership).permit(
+        :user_group_id,
+        :user_id,
+        :membership_type
+      )
     end
 end

@@ -13,8 +13,11 @@
 <%= current_user.first_name %>!
 <% end  %>
   </p>
-<%= link_to "Sign Out", signout_path, class: "item"%>
-<%= link_to "Sign In", signin_path, class: "item" %>
+  <% if current_user %>
+    <%= link_to "Sign Out", signout_path, class: "item"%>
+  <% else %>
+    <%= link_to "Sign In", signin_path, class: "item" %>
+  <% end %>
 
 <%= yield %>
 
